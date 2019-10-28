@@ -1,5 +1,17 @@
 'use strict';
 const toString = Object.prototype.toString;
+
+ /**
+ *
+ * @description 定义检测数据类型的功能函数
+ * @export
+ * @param {object} val
+ * @returns {boolean}
+ */
+export function checkedType(target) {
+      return Object.prototype.toString.call(target).slice(8, -1)
+  }
+
 /**
  *
  * @description 判断是否数组类型

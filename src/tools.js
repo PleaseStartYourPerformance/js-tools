@@ -19,31 +19,21 @@ export function checkedType(target) {
  * @param {object} val
  * @returns {boolean}
  */
-export function deepClone(target) {
-    //判断拷贝的数据类型
-    //初始化变量result 成为最终克隆的数据
-    let result, targetType = checkedType(target)
-    if (targetType === 'Object') {
-        result = {}
-    } else if (targetType === 'Array') {
-        result = []
+export function deepClone(arr) {
+    let res
+    if (checkedType(arr) === 'Array' || checkedType(arr) === 'Object') {
+        checkedType(arr) === 'Array' ? (res = []) : (res = {})
     } else {
-        return target
+        return arr
     }
-    //遍历目标数据
-    for (let i in target) {
-        //获取遍历数据结构的每一项值。
-        let value = target[i]
-        //判断目标结构里的每一值是否存在对象/数组
-        if (checkedType(value) === 'Object' ||
-            checkedType(value) === 'Array') { //对象/数组里嵌套了对象/数组
-            //继续遍历获取到value值
-            result[i] = clone(value)
-        } else { //获取到value值是基本的数据类型或者是函数。
-            result[i] = value;
+    for (let i in arr) {
+        if (checkedType(arr[i]) === 'Array' || checkedType(arr[i]) === 'Object') {
+            res[i] = deep(arr[i])
+        } else {
+            res[i] = arr[i]
         }
     }
-    return result
+    return res
 }
 
 /**
@@ -641,7 +631,7 @@ export function Round(v,w){
         return s; 
 };
 /**
- * @description 深拷貝
+ * @description 深拷贝2
  * @param obj
  * @param
  * @return obj
@@ -663,23 +653,6 @@ export function deepCopy(obj) {
     return result;
 }
 
-
-export function deep(arr) {
-    let res
-    if (checkedType(arr) === 'Array' || checkedType(arr) === 'Object') {
-        checkedType(arr) === 'Array' ? (res = []) : (res = {})
-    } else {
-        return arr
-    }
-    for (let i in arr) {
-        if (checkedType(arr[i]) === 'Array' || checkedType(arr[i]) === 'Object') {
-            res[i] = deep(arr[i])
-        } else {
-            res[i] = arr[i]
-        }
-    }
-    return res
-}
 /**
  * 随机数
  */

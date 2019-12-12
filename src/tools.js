@@ -640,3 +640,67 @@ export function Round(v,w){
         }
         return s; 
 };
+/**
+ * @description 深拷貝
+ * @param obj
+ * @param
+ * @return obj
+ * @example
+ *
+ *
+ */
+export function deepCopy(obj) {
+    var result = Array.isArray(obj) ? [] : {};
+    for (var key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            if (typeof obj[key] === 'object' && obj[key]!==null) {
+                result[key] = deepCopy(obj[key]);   //递归复制
+            } else {
+                result[key] = obj[key];
+            }
+        }
+    }
+    return result;
+}
+
+
+export function deep(arr) {
+    let res
+    if (checkedType(arr) === 'Array' || checkedType(arr) === 'Object') {
+        checkedType(arr) === 'Array' ? (res = []) : (res = {})
+    } else {
+        return arr
+    }
+    for (let i in arr) {
+        if (checkedType(arr[i]) === 'Array' || checkedType(arr[i]) === 'Object') {
+            res[i] = deep(arr[i])
+        } else {
+            res[i] = arr[i]
+        }
+    }
+    return res
+}
+/**
+ * 随机数
+ */
+export function randomString(n = 6) {
+    var str = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWYZ';
+    let id = ''
+    for (let i = id.length; i < n; i++) {
+        id += str.charAt(Math.floor(Math.random() * str.length))
+    }
+    return id
+}
+/**
+ * @description 获取目标日期
+ * @param number oF 年
+ * @param number oM 月
+ * @param number oD 日
+ */
+Date.prototype.getTargetDate = function (oF, oM, oD) {
+    var _date = new Date(this);
+    _date.setFullYear(_date.getFullYear() + oF);
+    _date.setMonth(_date.getMonth() + oM);
+    _date.setDate(_date.getDate() + oD);
+    return _date;
+};
